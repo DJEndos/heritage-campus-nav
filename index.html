@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Heritage Campus Nav — Find Your Way</title>
+<meta name="description" content="Secured smart campus navigation system for Heritage Polytechnic." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css" />
+<style>.d-none{display:none !important;}</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">HERITAGE</span>
+    <span class="sub">Campus Nav · Survey Grid v1</span>
+  </div>
+  <nav>
+    <a href="/index.html" class="active">Map</a>
+    <a href="/login.html" id="admin-link-guest">Sign in</a>
+  </nav>
+  <div id="user-chip-slot"></div>
+</header>
+
+<main class="app-shell">
+
+  <section class="panel">
+    <span class="eyebrow">Interactive Campus Map</span>
+    <h2 style="margin-bottom:0.2rem;">Where do you want to go?</h2>
+    <p style="color:var(--paper-dim); font-size:0.88rem; margin-top:0;">
+      Click any two points on the map, or search below, to plot the shortest walking route.
+    </p>
+
+    <div class="search-box" style="margin-bottom:1rem;">
+      <label for="quick-search">Quick search</label>
+      <input type="text" id="quick-search" placeholder="Search for a building, hostel, office…" autocomplete="off" />
+      <div id="search-results" class="search-results d-none"></div>
+    </div>
+
+    <div class="map-wrap">
+      <svg id="campus-map" aria-label="Schematic map of Heritage Polytechnic campus"></svg>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <span class="eyebrow">Route Planner</span>
+    <h3 style="margin-bottom:0.8rem;">Plan your route</h3>
+
+    <div id="route-error" class="alert alert-error d-none"></div>
+
+    <form id="route-form">
+      <label for="from-input">From</label>
+      <input type="text" id="from-input" list="from-options" placeholder="Starting point" autocomplete="off" required />
+      <datalist id="from-options"></datalist>
+
+      <label for="to-input">To</label>
+      <input type="text" id="to-input" list="to-options" placeholder="Destination" autocomplete="off" required />
+      <datalist id="to-options"></datalist>
+
+      <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.85rem;">
+        <input type="checkbox" id="accessible-toggle" style="width:auto; margin:0;" />
+        Wheelchair / mobility-accessible route only
+      </label>
+
+      <div style="display:flex; gap:0.6rem; margin-top:0.6rem;">
+        <button type="submit" class="btn btn-primary btn-block">Find route</button>
+        <button type="button" id="clear-route-btn" class="btn btn-secondary">Clear</button>
+      </div>
+    </form>
+
+    <div id="route-summary" class="route-summary d-none">
+      <div class="stat">
+        <div class="value" id="stat-distance">—</div>
+        <div class="label">Distance</div>
+      </div>
+      <div class="stat">
+        <div class="value" id="stat-time">—</div>
+        <div class="label">Walk time</div>
+      </div>
+      <div class="stat">
+        <div class="value" id="stat-stops">—</div>
+        <div class="label">Stops</div>
+      </div>
+    </div>
+
+    <div id="directions-panel"></div>
+  </aside>
+
+</main>
+
+<p class="footer-note">Heritage Polytechnic · Secured Smart Campus Navigation System · Built for wayfinding, not surveillance</p>
+
+<script>window.CAMPUS_NAV_API_BASE = 'http://localhost:5000/api';</script>
+<script src="/api.js"></script>
+<script src="/auth.js"></script>
+<script src="/map.js"></script>
+</body>
+</html>

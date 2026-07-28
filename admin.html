@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin — Heritage Campus Nav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css" />
+<style>.d-none{display:none !important;}</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">HERITAGE</span>
+    <span class="sub">Campus Nav · Admin Console</span>
+  </div>
+  <nav><a href="/index.html">Map</a></nav>
+  <div id="user-chip-slot"></div>
+</header>
+
+<main style="max-width:1200px; margin:0 auto; padding:1.25rem; display:grid; gap:1.25rem;">
+
+  <div id="admin-error" class="alert alert-error d-none"></div>
+
+  <section class="panel">
+    <span class="eyebrow">Graph Nodes</span>
+    <h2 style="margin-bottom:0.2rem;">Locations</h2>
+    <p style="color:var(--paper-dim); font-size:0.88rem;">
+      Add a building or point of interest. Coordinates are percentages (0–100) on the schematic map.
+    </p>
+
+    <form id="location-form" class="form-row" style="align-items:end;">
+      <div>
+        <label for="loc-name">Name</label>
+        <input type="text" id="loc-name" required />
+      </div>
+      <div>
+        <label for="loc-code">Code (optional)</label>
+        <input type="text" id="loc-code" placeholder="e.g. SOE-02" />
+      </div>
+      <div>
+        <label for="loc-category">Category</label>
+        <select id="loc-category">
+          <option>Academic</option>
+          <option>Administration</option>
+          <option>Hostel</option>
+          <option>Facility</option>
+          <option>Recreation</option>
+          <option>Health</option>
+          <option>Gate</option>
+          <option>Parking</option>
+          <option>Landmark</option>
+        </select>
+      </div>
+      <div>
+        <label for="loc-x">X (0–100)</label>
+        <input type="number" id="loc-x" min="0" max="100" step="0.1" required />
+      </div>
+      <div>
+        <label for="loc-y">Y (0–100)</label>
+        <input type="number" id="loc-y" min="0" max="100" step="0.1" required />
+      </div>
+      <div style="grid-column: 1 / -1;">
+        <label for="loc-description">Description</label>
+        <textarea id="loc-description" rows="2"></textarea>
+      </div>
+      <div>
+        <label style="display:flex; align-items:center; gap:0.5rem;">
+          <input type="checkbox" id="loc-accessible" checked style="width:auto; margin:0;" />
+          Wheelchair accessible
+        </label>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary btn-block">Add location</button>
+      </div>
+    </form>
+
+    <table class="data-table" style="margin-top:1.2rem;">
+      <thead>
+        <tr><th>Name</th><th>Code</th><th>Category</th><th>Coords</th><th>Accessible</th><th></th></tr>
+      </thead>
+      <tbody id="locations-tbody"></tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <span class="eyebrow">Graph Edges</span>
+    <h2 style="margin-bottom:0.2rem;">Paths between locations</h2>
+    <p style="color:var(--paper-dim); font-size:0.88rem;">
+      Connect two locations with a walkable path so the route planner can use it.
+    </p>
+
+    <form id="edge-form" class="form-row" style="align-items:end;">
+      <div>
+        <label for="edge-from">From</label>
+        <select id="edge-from" required></select>
+      </div>
+      <div>
+        <label for="edge-to">To</label>
+        <select id="edge-to" required></select>
+      </div>
+      <div>
+        <label for="edge-distance">Distance (meters)</label>
+        <input type="number" id="edge-distance" min="1" required />
+      </div>
+      <div>
+        <label for="edge-type">Path type</label>
+        <select id="edge-type">
+          <option>Walkway</option>
+          <option>Road</option>
+          <option>Stairs</option>
+          <option>Ramp</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:flex; align-items:center; gap:0.5rem;">
+          <input type="checkbox" id="edge-accessible" checked style="width:auto; margin:0;" />
+          Accessible
+        </label>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary btn-block">Add path</button>
+      </div>
+    </form>
+
+    <table class="data-table" style="margin-top:1.2rem;">
+      <thead>
+        <tr><th>From</th><th>To</th><th>Distance</th><th>Type</th><th>Accessible</th><th></th></tr>
+      </thead>
+      <tbody id="edges-tbody"></tbody>
+    </table>
+  </section>
+
+</main>
+
+<p class="footer-note">Admin console — restricted to accounts with the "admin" role</p>
+
+<script>window.CAMPUS_NAV_API_BASE = 'http://localhost:5000/api';</script>
+<script src="/api.js"></script>
+<script src="/auth.js"></script>
+<script src="/admin.js"></script>
+</body>
+</html>

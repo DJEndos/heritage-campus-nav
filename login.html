@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign in — Heritage Campus Nav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css"/>
+<style>.d-none{display:none !important;}</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">HERITAGE</span>
+    <span class="sub">Campus Nav · Survey Grid v1</span>
+  </div>
+  <nav><a href="/index.html">Map</a></nav>
+  <div id="user-chip-slot"></div>
+</header>
+
+<div class="auth-shell">
+  <div class="panel auth-card">
+    <span class="eyebrow">Secured Access</span>
+    <h2 style="margin-bottom:0.2rem;">Sign in</h2>
+    <p class="helper">Use your student, staff, or admin account to save preferences and access admin tools.</p>
+
+    <div id="auth-error" class="alert alert-error d-none"></div>
+
+    <form id="login-form">
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" required autocomplete="email" />
+
+      <label for="login-password">Password</label>
+      <input type="password" id="login-password" required autocomplete="current-password" />
+
+      <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+    </form>
+
+    <p class="helper" style="margin-top:1rem;">
+      No account yet? <a href="register.html">Create one</a>
+    </p>
+  </div>
+</div>
+
+<p class="footer-note">Passwords are hashed and never stored in plain text.</p>
+
+<script>window.CAMPUS_NAV_API_BASE = 'http://localhost:5000/api';</script>
+<script src="/api.js"></script>
+<script src="/auth.js"></script>
+</body>
+</html>
